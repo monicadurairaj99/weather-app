@@ -1,0 +1,104 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <style>
+        	div#title{
+        		text-align: center;
+        		font-size: 30px;
+        	}
+        	.Clear {
+        		color: ffff00;
+        		align-content: center;
+        		border: ffa500;
+        		font-size: 100px;
+        	}
+        	.Clouds{
+        		color:A7C4C2;
+        		font-size: 100px; 
+        	}
+        	.Rain{
+        		font-size: 100px;
+        		color: 007CBE;
+        	}
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="jumbotron p-4 p-md-5 text-white rounded bg-dark">
+        <div id="title">WEATHER</div>
+        </div>
+        </div>
+        <div class="container">
+        <input type="text" id="zip"  placeholder="zipcode">
+        <button onClick="getWeather();">submit</button>
+
+
+        <h2 id="weather-message"></h2>
+
+<!--          <i class="fa fa-car"></i>
+ -->
+        <span id="icon"></span>
+        </div>
+
+        <script type="text/javascript">
+
+            function getWeather() {
+            let zipCode = zip.value;
+        	console.log(zipCode);
+        	let weatherIcon = null;
+                let request = new XMLHttpRequest();
+
+                request.open("GET", "http://api.openweathermap.org/data/2.5/weather?zip=" + zipCode + ",US&units=imperial&appid=api key", true);
+                request.send();
+            
+                request.onreadystatechange = function() {
+                    if (request.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
+                        if (request.status == 200) {
+                            let forecast = JSON.parse(request.responseText);  // JSON reponse will be formatted here to object
+                            console.log(forecast);
+                       
+                            let conditions = forecast.name + " is currently " + forecast.weather[0].main + ", and " + forecast.main.temp + " degrees.";
+                            console.log(conditions);
+                            document.getElementById("weather-message").innerText = conditions;
+                            if (forecast.weather[0].main == "Rain"){
+
+                             weatherIcon =  '<i class="fa fa-umbrella Rain"></i>';
+                       
+
+                            }
+
+                            else if(forecast.weather[0].main == "Clouds"){
+                                  weatherIcon =  '<i class="fa fa-cloud Clouds"></i>';
+
+
+                            }
+
+
+                            else if(forecast.weather[0].main == "Clear"){
+                                  weatherIcon =  '<i class="fa fa-certificate Clear"></i>';
+
+                            }
+
+                             console.log(weatherIcon);
+                            document.getElementById("icon").innerHTML = weatherIcon;
+
+                        }
+                        else if(request.status == 404) {
+                        let notFoud = "Weather is not available for this zip code"
+                        document.getElementById("weather-message").innerText = notFoud;
+
+                        }
+                        else {
+                            alert('There was an error');
+                        }
+                    }
+                };
+            
+               
+            }
+            
+        </script>
+
+    </body>
+</html>
