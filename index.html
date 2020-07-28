@@ -31,20 +31,20 @@
         </div>
         <div class="container">
         <input type="text" id="zip"  placeholder="zipcode">
-        <button onClick="getWeather();">submit</button>
+        <button onClick="getWeather(zip.value);">submit</button>
 
 
         <h2 id="weather-message"></h2>
 
-<!--          <i class="fa fa-car"></i>
- -->
         <span id="icon"></span>
         </div>
 
         <script type="text/javascript">
 
-            function getWeather() {
-            let zipCode = zip.value;
+            getWeather(72712);
+            
+            function getWeather(zipcode) {
+            let zipCode = zipcode;
         	console.log(zipCode);
         	let weatherIcon = null;
                 let request = new XMLHttpRequest();
