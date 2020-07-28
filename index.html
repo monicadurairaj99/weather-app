@@ -36,20 +36,22 @@
 
         <h2 id="weather-message"></h2>
 
+<!--          <i class="fa fa-car"></i>
+ -->
         <span id="icon"></span>
         </div>
 
         <script type="text/javascript">
 
             getWeather(72712);
-            
+
             function getWeather(zipcode) {
-            let zipCode = zipcode;
-        	console.log(zipCode);
+             let zipCode = zipcode;
+        	 console.log(zipCode);
         	let weatherIcon = null;
                 let request = new XMLHttpRequest();
 
-                request.open("GET", "http://api.openweathermap.org/data/2.5/weather?zip=" + zipCode + ",US&units=imperial&appid=api key", true);
+                request.open("GET", "http://api.openweathermap.org/data/2.5/weather?zip=" + zipCode + ",US&units=imperial&appid=APIKEY", true);
                 request.send();
             
                 request.onreadystatechange = function() {
